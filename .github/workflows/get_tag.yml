@@ -19,6 +19,16 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
+        name: Print info
+        run: |
+          echo "ref_type: ${{ github.ref_type }}"
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "ref: ${{ github.ref }}"
+          echo "head_ref: ${{ github.head_ref }}"
+          echo "event_name: ${{ github.event_name }}"
+          echo "event.inputs: ${{ github.event.inputs }}"
+          echo "event.inputs.image_name: ${{ github.event.inputs.image_tag }}"
+      -
         name: Set git tag in output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
@@ -53,6 +63,8 @@ jobs:
           echo "${{ github.event_name == 'push' }}"
           echo "${{ github.event_name != 'pull_request' }}"
           echo "${{ github.event.inputs.image_tag }}"
+          echo "${{ github.event.ref_type }}"
+          echo "${{ github.event.ref }}"
       - 
         name: Test env setup
         id: set_env_pr
@@ -89,5 +101,4 @@ jobs:
           echo "${{ github.event_name }}"
           echo "${{ github.event.inputs.image_tag }}"
           echo "${{ github.event.inputs }}"
-          echo "${{ github.event }}"
           echo "${{ github.event }}"
