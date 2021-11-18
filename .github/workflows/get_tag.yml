@@ -25,6 +25,7 @@ jobs:
         run: |
           echo "ref_type: ${{ github.ref_type }}"
           echo "ref_name: ${{ github.ref_name }}"
+          echo "base_red: ${{ github.event.base_ref }}"
           echo "ref: ${{ github.ref }}"
           echo "head_ref: ${{ github.head_ref }}"
           echo "event_name: ${{ github.event_name }}"
