@@ -57,17 +57,19 @@ jobs:
         name: Test env setup
         id: set_env_pr
         if: startsWith( github.ref, 'refs/tags/v')
-        env:
-          PILLAR: prod
         run: 
+          echo "PILLAR=production" >> $GITHUB_ENV
           echo "Should be PR - $PILLAR"
       -
         name: Test Not StartsWith 
         id: set_env_sg
         if: startsWith(github.ref, 'refs/tags/') != true
-        env:
-          PILLAR: staging
-        run: echo "Should be SG - $PILLAR"
+        run: 
+          echo "PILLAR=staging" >> $GITHUB_ENV
+          echo "Should be SG - $PILLAR"
+      -
+        name: Test What is the environment
+        run: echo "The Pillar is ${{ env.PILLAR }}"
       -
         name: Docker meta
         id: meta2
@@ -83,7 +85,11 @@ jobs:
         name: Check docker-meta
         id: check_meta2
         run: |
-          echo ${{ steps.meta.outputs.tags }}
-          echo ${{ steps.meta.outputs.labels }}
-          echo ${{ github.event_name }}
-          echo ${{ github.event.inputs.image_tag }}
+          echo "${{ steps.meta2.outputs.tags }}"
+          echo "${{ steps.meta2.outputs.labels }}"
+          echo "----------------------------------"
+          echo "${{ github.event_name }}"
+          echo "${{ github.event.inputs.image_tag }}"
+          echo "${{ github.event.inputs }}"
+          echo "${{ github.event }}"
+          echo "${{ github.event }}"
