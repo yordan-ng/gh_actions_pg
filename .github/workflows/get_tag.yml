@@ -16,6 +16,8 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      PILLAR: staging       # sets the sefault. It is changed later if necessary
     steps:
       -
         name: Checkout
