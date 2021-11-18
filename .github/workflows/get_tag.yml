@@ -117,7 +117,8 @@ jobs:
         name: Set pillar
         id: set_pillar
         run: 
-          echo PILLAR=fromJSON('["staging", "production"]')[env.HASTAG == 'true']
+          echo PILLARR=fromJSON('["staging", "production"]')[env.HASTAG == 'true']
       -
         name: Check pillar
-        run: echo "Pillar: ${{ env.PILLAR }}"
+        id: checkpillar
+        run: echo "Pillar is ${{ env.PILLARR }}"
