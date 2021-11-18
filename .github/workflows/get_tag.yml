@@ -23,7 +23,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        
       -
+      
         name: Print info
         run: |
           echo "ref_type: ${{ github.ref_type }}"
@@ -35,33 +37,45 @@ jobs:
           echo "event.inputs: ${{ github.event.inputs }}"
           echo "event.inputs.image_name: ${{ github.event.inputs.image_tag }}"
           echo "Tags: ${{ github.event.inputs.tags }}"
+          
       -
+      
         name: Set git tag in output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        
       -
+      
         name: Set git tag 2
         id: vars2
         run: echo "RELEASE_VERSION2=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        
       - 
+      
         name: Test
         run: |
           echo $RELEASE_VERSION2
           echo ${{ env.RELEASE_VERSION2 }}
+          
       -
+      
         name: Check output
         env:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         run: |
           echo $RELEASE_VERSION
           echo ${{ steps.vars.outputs.tag }}
+          
       -
+      
         name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: name/app    
+          
       -
+      
         name: Check docker-meta
         id: check_meta
         run: |
@@ -72,22 +86,30 @@ jobs:
           echo "${{ github.event.inputs.image_tag }}"
           echo "${{ github.event.ref_type }}"
           echo "${{ github.event.ref }}"
+          
       - 
+      
         name: Test env setup
         id: set_env_pr
         if: startsWith( github.ref, 'refs/tags/v')
         run: 
           echo "PILLAR=production" >> $GITHUB_ENV
+          
       -
+      
         name: Test Not StartsWith 
         id: set_env_sg
         if: startsWith(github.ref, 'refs/tags/') != true
         run: 
           echo "PILLAR=staging" >> $GITHUB_ENV
+          
       -
+      
         name: Test What is the environment
         run: echo "The Pillar is ${{ env.PILLAR }}"
+        
       -
+      
         name: Docker meta
         id: meta2
         uses: docker/metadata-action@v3
@@ -98,7 +120,9 @@ jobs:
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
+            
       -
+      
         name: Check docker-meta
         id: check_meta2
         run: |
