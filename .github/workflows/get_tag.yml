@@ -48,11 +48,11 @@ jobs:
         name: Check docker-meta
         id: check_meta
         run: |
-          echo ${{ steps.meta.outputs.tags }}
-          echo ${{ steps.meta.outputs.labels }}
-          echo ${{ github.event_name == 'push' }}
-          echo ${{ github.event_name != 'pull_request' }}
-          echo ${{ github.event.inputs.image_tag }}
+          echo "${{ steps.meta.outputs.tags }}"
+          echo "${{ steps.meta.outputs.labels }}"
+          echo "${{ github.event_name == 'push' }}"
+          echo "${{ github.event_name != 'pull_request' }}"
+          echo "${{ github.event.inputs.image_tag }}"
       - 
         name: Test env setup
         id: set_env_pr
