@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PILLAR: staging       # sets the sefault. It is changed later if necessary
+      PILLARR: staging
     steps:
       -
         name: Checkout
