@@ -104,3 +104,19 @@ jobs:
           echo "${{ github.event.inputs.image_tag }}"
           echo "${{ github.event.inputs }}"
           echo "${{ github.event }}"
+      -
+        name: Check if tagged
+        id: istagged
+        if: |
+          (github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')) ||
+          (github.event_name == 'workflow_dispatch' && startsWith(github.event.inputs.image_tag, 'v')
+        run: 
+        run: echo "HASTAG=true" >> $GITHUB_ENV
+      -
+        name: Set pillar
+        id: set_pillar
+        run: 
+          echo PILLAR=fromJSON('["staging", "production"]')[env.HASTAG == 'true']
+      -
+        name: Check pillar
+        run: echo "Pillar: ${{ env.PILLAR }}"
