@@ -119,3 +119,11 @@ jobs:
         name: Check pillar
         id: checkpillar
         run: echo "Pillar is ${{ env.PILLARR }}"
+      -
+        name: Dump all secrets to file
+        run: bash ./.github/getsec.sh "$secrets" ${{ env.PILARR }}
+        env:
+          secrets: ${{ toJson(secrets) }}
+      -
+        name: Check the file contents
+        run: cat ./deployment.env
