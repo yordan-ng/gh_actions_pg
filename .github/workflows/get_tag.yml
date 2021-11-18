@@ -34,6 +34,7 @@ jobs:
           echo "event_name: ${{ github.event_name }}"
           echo "event.inputs: ${{ github.event.inputs }}"
           echo "event.inputs.image_name: ${{ github.event.inputs.image_tag }}"
+          echo "Tags: ${{ github.event.inputs.tags }}"
       -
         name: Set git tag in output
         id: vars
