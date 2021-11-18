@@ -132,11 +132,15 @@ jobs:
         name: Ternary
         id: ternary
         if: env.PILLARR == 'production'
-        run: 
-          echo [[ "${{ github.event_name }}" = "workflow_dispatch" ]] && TAGS="${{ github.event.inputs.image_tag }}" || TAGS="${{ steps.meta2.outputs.tags }}" >> $GITHUB_ENV
+        run: |
+          if [[ "${{ github.event_name }}" = "workflow_dispatch" ]]; then
+            echo TAGS="${{ github.event.inputs.image_tag }}"  >> $GITHUB_ENV
+          else
+            echo TAGS="${{ steps.meta2.outputs.tags }}" >> $GITHUB_ENV
+          fi
       -
         name: Use tags
         if: env.PILLARR == 'production'
         run: |
           echo "TAGS = ${{ env.TAGS }}"
-          echo "PILLARR = ${{ env.PILLARR }}"
+          echo "PILLARR = env.PILLARR"
