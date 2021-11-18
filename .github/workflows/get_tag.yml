@@ -128,3 +128,15 @@ jobs:
       -
         name: Check the file contents
         run: cat ./deployment.env
+      -
+        name: Ternary
+        id: ternary
+        if: ${{ env.PILLARR }} == 'production'
+        run: 
+          echo [[ "${{ github.event_name }}" = "workflow_dispatch" ]] && TAGS="${{ github.event.inputs.image_tag }}" || TAGS="${{ steps.meta2.outputs.tags }}" >> $GITHUB_ENV
+      -
+        name: Use tags
+        if: ${{ env.PILLARR }} == 'production'
+        run:
+          echo "TAGS = ${{ env.TAGS }}"
+       
