@@ -50,7 +50,7 @@ jobs:
         run: |
           echo ${{ steps.meta.outputs.tags }}
           echo ${{ steps.meta.outputs.labels }}
-          echo ${{ github.event_name == push }}
+          echo ${{ github.event_name == 'push' }}
           echo ${{ github.event_name != 'pull_request' }}
           echo ${{ github.event.inputs.image_tag }}
           echo ${{ github.event.inputs }}
